@@ -21,6 +21,7 @@ const router = new UIRouterReact();
 
 router.plugin(servicesPlugin);
 router.plugin(pushStateLocationPlugin);
+router.urlRouter.otherwise({state: 'home'});
 
 for(let i = 0; i < states.length; i++) {
     router.stateRegistry.register(states[i]);
