@@ -5,7 +5,7 @@ import Dashboard  from './components/Dashboard';
 
 const states = [{
     name: 'signUp',
-    url: '/signUp',
+    url: '/signUpLogin',
     component: SignUpLogin
 },{
     name: 'home',
