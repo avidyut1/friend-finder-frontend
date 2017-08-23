@@ -1,15 +1,20 @@
 import {UIRouterReact, servicesPlugin, pushStateLocationPlugin} from '@uirouter/react';
 import Home from './components/Home';
-import SignUp from './components/SignUp';
+import SignUpLogin from './components/SignUpLogin';
+import Dashboard  from './components/Dashboard';
 
 const states = [{
     name: 'signUp',
     url: '/signUp',
-    component: SignUp
+    component: SignUpLogin
 },{
     name: 'home',
     url: '/',
     component: Home
+},{
+    name: 'dasbhoard',
+    url: '/dashboard',
+    component: Dashboard
 }];
 
 const router = new UIRouterReact();
