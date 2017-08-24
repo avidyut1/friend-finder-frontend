@@ -1,0 +1,10 @@
+.width-100 {
+    width: 100% !important;
+}
+.sign-up-form-field {
+    margin-top: 10px;
+}
+.sign-up-form-info {
+    color: red;
+    font-size: 9px;
+}
