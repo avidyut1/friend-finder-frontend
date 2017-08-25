@@ -8,3 +8,13 @@
     color: red;
     font-size: 9px;
 }
+.modalBox{
+    text-align: center;
+}
+.modalBox:focus{
+    outline: none !important;
+}
+.ReactModal__Overlay, .ReactModal__Overlay--after-open {
+    z-index: 1000000;
+    background: white !important;
+}
