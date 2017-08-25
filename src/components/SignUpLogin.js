@@ -14,13 +14,27 @@ class SignUpLogin extends Component {
     constructor(props) {
         super(props);
         this.signUp = this.signUp.bind(this);
+        this.handleFileChange = this.handleFileChange.bind(this);
         this.state = {sex: 'M'};
     }
     signUp(){
-        console.log(this.state);
-        axios.post(API_URL + 'users/signup', this.state).then(function (response){
-            console.log(response);
+        axios.post(API_URL + 'users/', this.state).then((response) => {
+            let user = response.data;
+            let data = new FormData();
+            data.append('file', this.state.avatar);
+            axios.post(API_URL + `users/${user.id}/uploadavatar`, data, {
+                headers: {
+                    'Content-type': 'multipart/form-data'
+                }
+            }).then(function (response){
+                console.log(response);
+            });
+        }).catch(function (error){
+            alert(error);
         });
+    }
+    handleFileChange(event) {
+        this.setState({'avatar': event.target.files[0]})
     }
     render() {
         const style = {
@@ -47,7 +61,7 @@ class SignUpLogin extends Component {
                                 <Col xs={9} md={6}>
                                     <FileInput  name="avatar" accept=".png,.gif,.jpeg"
                                                 placeholder="Profile Picture"
-                                                onChange={(event) => this.setState({'avatar': event.target.files[0]})} />
+                                                onChange={this.handleFileChange} />
                                 </Col>
                             </Row>
                             <TextField className='width-100 text-left'
