@@ -25,11 +25,17 @@ class SignUpLogin extends Component {
         this.setState({isModalOpen: true, message: 'LoggingIn ...', completed: 66});
         axios.post(API_URL + 'users/login', {email: this.state.user.email, password: this.state.user.password})
             .then((response) => {
-                console.log(response.data);
-                this.setState({completed: 100, message: 'Redirecting to Dashboard'});
-                window.localStorage.setItem('tinder', response.data.token);
-                //TODO redirect to dashboard
-                //TODO store user info
+                if(response.data.message === 'success') {
+                    console.log(response.data);
+                    this.setState({completed: 100, message: 'Redirecting to Dashboard'});
+                    window.localStorage.setItem('tinder', response.data.token);
+                    //TODO redirect to dashboard
+                    //TODO store user info
+                }
+                else {
+                    alert(response.data.message);
+                    this.setState({isModalOpen: false});
+                }
             }).catch((error) => {
                 console.log(error);
                 this.setState({isModalOpen: false});
