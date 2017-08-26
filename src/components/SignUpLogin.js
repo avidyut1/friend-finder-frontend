@@ -37,7 +37,7 @@ class SignUpLogin extends Component {
                     this.setState({isModalOpen: false});
                 }
             }).catch((error) => {
-                console.log(error);
+                alert(error);
                 this.setState({isModalOpen: false});
             });
     }
