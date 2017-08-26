@@ -27,7 +27,7 @@ class SignUpLogin extends Component {
             .then((response) => {
                 console.log(response.data);
                 this.setState({completed: 100, message: 'Redirecting to Dashboard'});
-                //TODO store token in localstorage
+                window.localStorage.setItem('tinder', response.data.token);
                 //TODO redirect to dashboard
                 //TODO store user info
             }).catch((error) => {
