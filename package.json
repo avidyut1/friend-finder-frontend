@@ -12,7 +12,9 @@
     "react-file-input": "^0.2.5",
     "react-modal": "^2.2.4",
     "react-radio-buttons": "^1.1.1",
+    "react-redux": "^5.0.6",
     "react-scripts": "1.0.11",
+    "redux": "^3.7.2",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {

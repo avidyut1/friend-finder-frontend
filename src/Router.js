@@ -12,7 +12,7 @@ const states = [{
     url: '/',
     component: Home
 },{
-    name: 'dasbhoard',
+    name: 'dashboard',
     url: '/dashboard',
     component: Dashboard
 }];

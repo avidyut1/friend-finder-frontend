@@ -3,20 +3,15 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Loader from './Loader';
 import '../styles/Home.css';
 import router from '../Router';
-import axios from 'axios';
-import {API_URL} from '../config';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {addUserInfo} from "../actions/userInfo"
 
 class Home extends Component {
     componentDidMount() {
         const jwtToken = window.localStorage.getItem('tinder');
         if (jwtToken) {
-            //fetching user from server
-            axios.get(API_URL + 'user', {headers: {'Authorization': jwtToken}}).then((response) => {
-                //TODO set user
-                router.stateService.go('dashboard');
-            }).catch((error) => {
-                router.stateService.go('signUp');
-            });
+            router.stateService.go('dashboard');
         }
         else {
             router.stateService.go('signUp');
@@ -32,5 +27,13 @@ class Home extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.userInfo
 
-export default Home;
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({addUserInfo}, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

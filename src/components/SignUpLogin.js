@@ -12,6 +12,10 @@ import {API_URL} from "../config";
 import Modal from 'react-modal';
 import LinearProgress from 'material-ui/LinearProgress';
 import CircularProgress from 'material-ui/CircularProgress';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {addUserInfo} from "../actions/userInfo"
+import router from '../Router';
 
 class SignUpLogin extends Component {
     constructor(props) {
@@ -21,6 +25,9 @@ class SignUpLogin extends Component {
         this.handleFileChange = this.handleFileChange.bind(this);
         this.state = {user: {sex: 'M'}};
     }
+    componentDidMount() {
+
+    }
     login() {
         this.setState({isModalOpen: true, message: 'LoggingIn ...', completed: 66});
         axios.post(API_URL + 'users/login', {email: this.state.user.email, password: this.state.user.password})
@@ -29,8 +36,9 @@ class SignUpLogin extends Component {
                     console.log(response.data);
                     this.setState({completed: 100, message: 'Redirecting to Dashboard'});
                     window.localStorage.setItem('tinder', response.data.token);
-                    //TODO redirect to dashboard
-                    //TODO store user info
+                    this.props.addUserInfo(response.data);
+                    this.setState({isModalOpen: false});
+                    router.stateService.go('dashboard');
                 }
                 else {
                     alert(response.data.message);
@@ -159,4 +167,13 @@ class SignUpLogin extends Component {
     }
 }
 
-export default SignUpLogin;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({addUserInfo}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpLogin);
