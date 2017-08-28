@@ -135,6 +135,12 @@ class SignUpLogin extends Component {
                                            type="password"
                                            onChange={(event, newValue) => this.setState({'user': {...this.state.user, password: newValue}})}
                                 /><br />
+                                <TextField className='width-100 text-left'
+                                           hintText="Mobile Number"
+                                           floatingLabelText="Mobile Number"
+                                           type="number"
+                                           onChange={(event, newValue) => this.setState({'user': {...this.state.user, mobile: newValue}})}
+                                /><br />
                                 <RadioGroup className='sign-up-form-field' onChange={(value) => this.setState({'user': {...this.state.user, sex: value}})}>
                                     <RadioButton value="M">
                                         Male

@@ -31,6 +31,7 @@ class Dashboard extends Component {
         this.state = {loading: true};
         this.handleLike = this.handleLike.bind(this);
         this.handleDislike = this.handleDislike.bind(this);
+        this.logout = this.logout.bind(this);
     }
     componentWillMount() {
         let jwt = localStorage.getItem('tinder');
@@ -139,13 +140,20 @@ class Dashboard extends Component {
             }
         });
     }
+    logout() {
+        localStorage.removeItem('tinder');
+        clearInterval(this.state.interval);
+        router.stateService.go('signUp');
+    }
     componentDidMount() {
-        setInterval(()=>{
+        let interval = setInterval(()=>{
             this.pollMatches();
-        }, 5 * 60 * 1000);
+        },  10000);
+        this.setState({interval: interval});
     }
     pollMatches() {
-        axios.get(API_URL + 'matches/' + this.props.matches.matches[this.props.matches.matches.length - 1].id,
+        let afterId = this.props.matches.matches.length > 0 ? this.props.matches.matches[this.props.matches.matches.length - 1].id : -1;
+        axios.get(API_URL + 'matches/' + afterId,
             {headers: {Authorization: localStorage.getItem('tinder')}}).then((response) => {
             if (response.data.length > 0) {
                 this.showAlert('You have new match');
@@ -190,7 +198,7 @@ class Dashboard extends Component {
                                 <NavDropdown eventKey={3} title="Options" id="basic-nav-dropdown">
                                     <MenuItem eventKey={3.3}>Update Profile</MenuItem>
                                     <MenuItem divider />
-                                    <MenuItem eventKey={3.4}>Logout</MenuItem>
+                                    <MenuItem eventKey={3.4} onClick={this.logout}>Logout</MenuItem>
                                 </NavDropdown>
                             </Nav>
                         </Navbar>
