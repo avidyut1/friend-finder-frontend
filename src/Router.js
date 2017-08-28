@@ -2,6 +2,7 @@ import {UIRouterReact, servicesPlugin, pushStateLocationPlugin} from '@uirouter/
 import Home from './components/Home';
 import SignUpLogin from './components/SignUpLogin';
 import Dashboard  from './components/Dashboard';
+import Matches from './components/Matches';
 
 const states = [{
     name: 'signUp',
@@ -15,6 +16,10 @@ const states = [{
     name: 'dashboard',
     url: '/dashboard',
     component: Dashboard
+},{
+    name: 'matches',
+    url: '/matches',
+    component: Matches
 }];
 
 const router = new UIRouterReact();

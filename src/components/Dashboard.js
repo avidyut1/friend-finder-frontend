@@ -32,6 +32,7 @@ class Dashboard extends Component {
         this.handleLike = this.handleLike.bind(this);
         this.handleDislike = this.handleDislike.bind(this);
         this.logout = this.logout.bind(this);
+        this.goToMatches = this.goToMatches.bind(this);
     }
     componentWillMount() {
         let jwt = localStorage.getItem('tinder');
@@ -39,7 +40,19 @@ class Dashboard extends Component {
             axios.get(API_URL + '/users', {headers: {'Authorization': jwt}}).then((response) => {
                 this.props.addUserInfo(response.data);
                 axios.get(API_URL + '/matches', {headers: {'Authorization': jwt}}).then((response) => {
-                    this.props.addMatches(response.data);
+                    let newMatches = [];
+                    for (let i = 0; i < response.data.length; i++) {
+                        let found = false;
+                        for(let j = 0; j < this.props.matches.matches.length; j++) {
+                            if (this.props.matches.matches[j].id === response.data[i].id) {
+                                found = true;break;
+                            }
+                        }
+                        if (!found) {
+                            newMatches.push(response.data[i]);
+                        }
+                    }
+                    this.props.addMatches(newMatches);
                     axios.get(API_URL + '/users/fetch', {headers: {Authorization: jwt}}).then((response) => {
                         this.setState({profiles: response.data});
                         this.setState({index: 0});
@@ -169,6 +182,10 @@ class Dashboard extends Component {
             type: 'success'
         })
     }
+    goToMatches() {
+        clearInterval(this.state.interval);
+        router.stateService.go('matches');
+    }
     render() {
         const alertOptions = {
             offset: 14,
@@ -194,7 +211,7 @@ class Dashboard extends Component {
                                 </Navbar.Brand>
                             </Navbar.Header>
                             <Nav>
-                                <NavItem eventKey={1} href="#">Matches</NavItem>
+                                <NavItem eventKey={1} onClick={this.goToMatches} >Matches</NavItem>
                                 <NavDropdown eventKey={3} title="Options" id="basic-nav-dropdown">
                                     <MenuItem eventKey={3.3}>Update Profile</MenuItem>
                                     <MenuItem divider />
