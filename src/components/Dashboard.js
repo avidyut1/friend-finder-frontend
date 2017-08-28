@@ -41,7 +41,7 @@ class Dashboard extends Component {
     componentDidMount() {
         setInterval(()=>{
             this.pollMatches();
-        }, 1000);
+        }, 5 * 60 * 1000);
     }
     pollMatches() {
         axios.get(API_URL + 'matches/' + this.props.matches.matches[this.props.matches.matches.length - 1].id,
@@ -50,7 +50,6 @@ class Dashboard extends Component {
                 this.showAlert('You have new match');
                 this.props.addMatches(response.data);
             }
-            console.log(this.props.matches);
         }).catch((error) => {
             alert(error);
         })
