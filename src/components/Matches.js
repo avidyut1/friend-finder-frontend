@@ -49,7 +49,7 @@ class Matches extends Component {
                         </NavDropdown>
                     </Nav>
                 </Navbar>
-                <div className="text-center profile">
+                <div className="text-center">
                     {this.props.matches.matches.map((match, index) => {
                         return <Profile key={index} match={match}/>
                     })}

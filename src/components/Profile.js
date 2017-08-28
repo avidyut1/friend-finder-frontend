@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../styles/Profile.css';
 
 class Profile extends Component {
     constructor(props) {
@@ -6,7 +7,7 @@ class Profile extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="profile">
                 <img src={this.props.match.avatar.url || '/default.jpg'} alt=""/>
                 <p>{this.props.match.name}</p>
                 <p>{this.props.match.mobile}</p>
