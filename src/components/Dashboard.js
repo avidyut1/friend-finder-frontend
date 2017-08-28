@@ -191,7 +191,7 @@ class Dashboard extends Component {
             offset: 14,
             position: 'bottom left',
             theme: 'dark',
-            time: 5000,
+            time: 15000,
             transition: 'scale'
         };
 

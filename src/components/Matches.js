@@ -50,8 +50,8 @@ class Matches extends Component {
                     </Nav>
                 </Navbar>
                 <div className="text-center profile">
-                    {this.props.matches.matches.map((match) => {
-                        return <Profile match={match}/>
+                    {this.props.matches.matches.map((match, index) => {
+                        return <Profile key={index} match={match}/>
                     })}
                 </div>
             </div>
