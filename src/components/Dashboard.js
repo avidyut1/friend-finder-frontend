@@ -14,6 +14,17 @@ import AlertContainer from 'react-alert'
 import ToggleDisplay from 'react-toggle-display';
 import RaisedButton from 'material-ui/RaisedButton';
 
+
+axios.interceptors.response.use(function (response) {
+    if (response.data.message === 'no_user_found') {
+        router.stateService.go('signUp');
+    }
+    return response;
+}, function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+});
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
