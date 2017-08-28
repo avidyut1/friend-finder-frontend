@@ -50,6 +50,11 @@ class SignUpLogin extends Component {
             });
     }
     signUp(){
+        if (!this.state.user.name || !this.state.user.sex || !this.state.user.email
+            || !this.state.user.mobile || !this.state.user.password || !this.state.user.age) {
+            alert('all fields are mandatory');
+            return;
+        }
         this.setState({isModalOpen: true, message: 'SigningUp ...', completed: 0});
         axios.post(API_URL + 'users/', this.state.user).then((response) => {
             let user = response.data;
